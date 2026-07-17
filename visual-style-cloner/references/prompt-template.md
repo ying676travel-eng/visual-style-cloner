@@ -10,7 +10,7 @@ Use only when no reference image is supplied:
 
 ## Reverse-engineered style vocabulary
 
-Build a compact style description from the observed reference:
+Build a compact style description from the observed reference and include it in the final generation prompt:
 
 - **Medium:** marker sketch, watercolor illustration, paper collage, flat vector art, clay-like 3D render, cinematic photography, etc.
 - **Texture:** visible paper grain, dry brush, smooth plastic, soft felt, glossy ceramic, clean digital surface, etc.
@@ -21,15 +21,15 @@ Build a compact style description from the observed reference:
 - **Composition:** grid, framing, scale relationships, padding, panel spacing, and approximate whitespace percentage.
 - **Not:** crowded, messy, dark, photorealistic, overly complex, heavy shadows, gradients, touching panels, edge-clipped elements, or other traits contradicted by the reference.
 
-Avoid empty adjectives such as “beautiful” or “high-end” unless paired with observable visual evidence.
+Avoid empty adjectives such as "beautiful" or "high-end" unless paired with observable visual evidence.
 
 ## Reference image usage
 
-When an actual reference image is available, attach it to the image-generation call and add the following block near the beginning of the final prompt:
+When an actual reference image is available, attach it to the image-generation call and add this block near the beginning of the final prompt:
 
 ```text
 REFERENCE IMAGE ROLE:
-- Use the attached reference image as the authoritative source for: [visual style / character identity / pose / composition — list only confirmed roles].
+- Use the attached reference image as the authoritative visual source for: [visual style / character identity / pose / composition - list only confirmed roles].
 - For a style-only reference, transfer its medium, texture, line behavior, color logic, lighting, character-design language, typography treatment, spacing rhythm, and whitespace ratio.
 - Do not copy the reference image's original text, subject matter, props, or exact layout unless explicitly requested.
 - The confirmed new Chinese content and layout instructions below override any conflicting content visible in the reference image.
@@ -47,13 +47,14 @@ Module [number]: [module title]
 
 [If a reference image is attached, insert the REFERENCE IMAGE ROLE block here.]
 
-Composition Modifiers: Minimalist composition, high negative space, generous whitespace around elements, wide margins, ample internal padding, elements isolated on white background, clean layout, uncluttered, clear separation between every visual region.
+Composition Modifiers: Minimalist composition, high negative space, Generous whitespace, Wide margins, ample internal padding, Elements isolated on white background, Clean layout, Uncluttered, clear separation between every visual region.
 
 ASPECT RATIO & LAYOUT:
 - Ratio: [confirmed ratio]
-- Structure: 3 distinct sections — Top, Middle, Bottom — with clearly visible gaps.
+- Structure: 3 distinct sections - Top, Middle, Bottom - with clearly visible gaps.
 - Outer safe area: Keep all content comfortably inside the canvas with wide margins; nothing touches or approaches the edges.
 - Middle-content structure: [one complete scene / two independent panels / three independent panels], determined only from the confirmed copy's information structure.
+- Layout arrangement: [state the ratio-specific arrangement, e.g. landscape 4:3 with one large middle scene, landscape 16:9 with two square panels in one row, vertical 3:4 with stacked panels, square 1:1 with balanced spacing, or custom ratio arrangement].
 
 1. TOP: Title text "[confirmed Chinese title]". [Reference-matched font style, hierarchy, color, and alignment]. Keep generous empty space around the title.
 
@@ -63,12 +64,12 @@ ASPECT RATIO & LAYOUT:
    One large, coherent visual scene spanning the middle area. Do not divide it into cards or square panels. [English description of the unified setting, subjects, action, relationships, and focal hierarchy]. Render exact Chinese text: "[Chinese text]".
 
    B. TWO INDEPENDENT PANELS:
-   Use [one row x two columns for landscape / two stacked panels for vertical] with wide spacing. Each panel is a clearly bounded 1:1 square visual area with ample internal padding and an independent focal subject.
+   Use [one row x two columns for landscape / two stacked panels for vertical / balanced arrangement for square or custom ratio] with wide spacing. Each panel is a clearly bounded 1:1 square visual area with ample internal padding and an independent focal subject.
    - Panel 1: [English scene description]. Render exact Chinese label/text: "[Chinese text]".
    - Panel 2: [English scene description]. Render exact Chinese label/text: "[Chinese text]".
 
    C. THREE INDEPENDENT PANELS:
-   Use [one row x three columns for landscape / readable vertical stack or balanced 2+1 grid for vertical] with wide spacing. Each panel is a clearly bounded 1:1 square visual area with ample internal padding and an independent focal subject.
+   Use [one row x three columns for wide landscape / readable vertical stack or balanced 2+1 grid for vertical, square, or custom ratio] with wide spacing. Each panel is a clearly bounded 1:1 square visual area with ample internal padding and an independent focal subject.
    - Panel 1: [English scene description]. Render exact Chinese label/text: "[Chinese text]".
    - Panel 2: [English scene description]. Render exact Chinese label/text: "[Chinese text]".
    - Panel 3: [English scene description]. Render exact Chinese label/text: "[Chinese text]".
@@ -94,8 +95,10 @@ The copy's information structure determines whether the middle is one scene, two
 After the user approves the image and opts in, output:
 
 ```text
-【3–5 秒动态视频提示词】
-以当前图片为唯一视觉基准，完整锁定原图的画风、人物形象、配色、文字内容、排版结构与画面比例。时长 [3–5] 秒。
+【3-5 秒动态视频提示词】
+以当前图片为唯一视觉基准，完整锁定原图的画风、人物形象、配色、文字内容、排版结构与画面比例。时长 [3-5] 秒。
+
+[Insert the conditional middle-panel motion block.]
 
 起始状态：[describe the exact still-image starting state].
 主体动作：[one clear, small-amplitude motion with direction and timing].
@@ -108,8 +111,6 @@ After the user approves the image and opts in, output:
 
 ### Conditional middle-panel motion
 
-Insert exactly one of the following blocks after the duration line.
-
 For one middle panel:
 
 ```text
@@ -121,11 +122,11 @@ For two or three middle panels:
 ```text
 中间区域包含 [N] 个独立画面，必须按照 [left-to-right / top-to-bottom / confirmed reading order] 依次动态展示，并且同一时间只突出一个画面。
 
-画面 1：[gentle fade/scale in] → [small internal motion] → [brief readable hold] → [slow fade out].
-画面 2：在画面 1 基本消失后再出现；[gentle fade/scale in] → [small internal motion] → [brief readable hold] → [slow fade out].
+画面 1：[gentle fade/scale in] -> [small internal motion] -> [brief readable hold] -> [slow fade out].
+画面 2：在画面 1 基本消失后再出现；[gentle fade/scale in] -> [small internal motion] -> [brief readable hold] -> [slow fade out].
 [Continue the same pattern for panel 3 when present.]
 
 转场只允许短暂、干净的淡入淡出，不允许多个画面同时抢占视觉中心。标题、底部总结、背景和整体画框始终固定、清晰、稳定。只允许整个分画面发生透明度变化和极轻微缩放；分画面内部的文字、人物、图形和相对位置不得变形或漂移。
 ```
 
-For four or more middle panels, do not produce a cramped 3–5 second sequence. Ask the user to choose a longer duration or multiple clips first.
+For four or more middle panels, do not produce a cramped 3-5 second sequence. Ask the user to choose a longer duration or multiple clips first.

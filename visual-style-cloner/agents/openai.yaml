@@ -1,10 +1,8 @@
 interface:
   display_name: "\u89C6\u89C9\u98CE\u683C\u514B\u9686\u751F\u56FE"
   short_description: "\u9006\u5411\u53C2\u8003\u56FE\u98CE\u683C\uFF0C\u91CD\u6392\
-    \u5185\u5BB9\u5E76\u76F4\u63A5\u751F\u56FE\u53CA\u751F\u6210\u52A8\u6001\u63D0\
-    \u793A\u8BCD"
-  default_prompt: Use $visual-style-cloner to reverse-engineer my reference image,
-    rebuild the new content, and generate the image.
+    \u5185\u5BB9\u5E76\u751F\u6210\u540C\u98CE\u683C\u914D\u56FE"
+  default_prompt: "\u4F7F\u7528 $visual-style-cloner\uFF0C\u6839\u636E\u53C2\u8003\u56FE\u548C\u5185\u5BB9\u6587\u6848\u751F\u6210\u540C\u98CE\u683C\u914D\u56FE\u3002"
 policy:
   products:
   - chatgpt
